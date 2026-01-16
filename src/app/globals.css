@@ -1,0 +1,165 @@
+@config "../../tailwind.config.js";
+@import 'tailwindcss';
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --paper: #f7f0e6;
+  --paper-soft: #fef8f1;
+  --ink: #1f1a13;
+  --muted: #6d6255;
+  --accent: #e06a4f;
+  --accent-strong: #c55338;
+  --sage: #2f5f46;
+  --card: #fff9f2;
+  --ring: rgba(31, 26, 19, 0.12);
+  --shadow: rgba(31, 26, 19, 0.18);
+}
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100%;
+  background:
+    radial-gradient(1200px circle at 12% -10%, rgba(224, 106, 79, 0.18), transparent 42%),
+    radial-gradient(900px circle at 92% 8%, rgba(47, 95, 70, 0.16), transparent 45%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(31, 26, 19, 0.05),
+      rgba(31, 26, 19, 0.05) 1px,
+      transparent 1px,
+      transparent 14px
+    ),
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.energy-chip[data-energy] {
+  --energy-bg: rgba(31, 26, 19, 0.08);
+  --energy-text: var(--ink);
+  --energy-border: rgba(31, 26, 19, 0.2);
+  background-color: var(--energy-bg);
+  color: var(--energy-text);
+  border-color: var(--energy-border);
+}
+
+.energy-chip[data-energy='A'] {
+  --energy-bg: rgba(0, 154, 68, 0.18);
+  --energy-text: #0b5d2f;
+  --energy-border: rgba(0, 154, 68, 0.5);
+}
+
+.energy-chip[data-energy='B'] {
+  --energy-bg: rgba(81, 181, 73, 0.18);
+  --energy-text: #2f7a39;
+  --energy-border: rgba(81, 181, 73, 0.5);
+}
+
+.energy-chip[data-energy='C'] {
+  --energy-bg: rgba(198, 214, 75, 0.2);
+  --energy-text: #6a6b1f;
+  --energy-border: rgba(198, 214, 75, 0.6);
+}
+
+.energy-chip[data-energy='D'] {
+  --energy-bg: rgba(254, 231, 79, 0.22);
+  --energy-text: #7a6c1c;
+  --energy-border: rgba(254, 231, 79, 0.6);
+}
+
+.energy-chip[data-energy='E'] {
+  --energy-bg: rgba(245, 160, 60, 0.22);
+  --energy-text: #8a4d12;
+  --energy-border: rgba(245, 160, 60, 0.55);
+}
+
+.energy-chip[data-energy='F'] {
+  --energy-bg: rgba(230, 100, 44, 0.22);
+  --energy-text: #8a3414;
+  --energy-border: rgba(230, 100, 44, 0.55);
+}
+
+.energy-chip[data-energy='G'] {
+  --energy-bg: rgba(198, 26, 26, 0.22);
+  --energy-text: #7a1111;
+  --energy-border: rgba(198, 26, 26, 0.55);
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display), serif;
+  }
+
+  .text-muted {
+    color: var(--muted);
+  }
+
+  .bg-card {
+    background-color: var(--card);
+  }
+
+  .card-reveal {
+    opacity: 0;
+    animation: card-in 0.5s ease forwards;
+  }
+
+  .soft-ring {
+    box-shadow:
+      0 0 0 1px var(--ring),
+      0 20px 45px -35px var(--shadow);
+  }
+
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(31, 26, 19, 0.08);
+    color: transparent;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(12px, -10px, 0);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

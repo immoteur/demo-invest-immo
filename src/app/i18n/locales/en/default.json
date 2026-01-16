@@ -1,0 +1,50 @@
+{
+  "language": {
+    "switch": "Switch language"
+  },
+  "hero": {
+    "badge": "Immoteur Demo",
+    "githubCta": "GitHub Repo",
+    "title": "Invest'Immo — find apartments to renovate and invest in.",
+    "subtitle": "This demo shows how to connect the Immoteur API to display DPE-filtered listings by department."
+  },
+  "filters": {
+    "sale": "Sale",
+    "apartment": "Apartment",
+    "department": "Department",
+    "departmentPlaceholder": "Type a department or code"
+  },
+  "summary": {
+    "totalMatches": "Total matches {{countLabel}}"
+  },
+  "errors": {
+    "loadClassifieds": "Unable to load classifieds right now. Please try again shortly."
+  },
+  "empty": {
+    "noClassifieds": "No classifieds found in {{department}}. Try another department."
+  },
+  "pagination": {
+    "notice": "Pagination is limited to the first page in this demo."
+  },
+  "labels": {
+    "dpe": "DPE {{label}}",
+    "ges": "GES {{label}}",
+    "notAvailable": "N\u2044D",
+    "noDescription": "No description provided.",
+    "areaUnit": "{{area}} m2"
+  },
+  "card": {
+    "noImage": "No image",
+    "imageAlt": "Apartment in {{city}}",
+    "firstSeen": "First seen {{date}}",
+    "professional": "Pro",
+    "private": "Private",
+    "title": "Apartment - {{countLabel}} rooms",
+    "area": "Area {{area}}",
+    "source": {
+      "otherLinks": "Other source links",
+      "otherSources": "Other sources",
+      "none": "No source"
+    }
+  }
+}

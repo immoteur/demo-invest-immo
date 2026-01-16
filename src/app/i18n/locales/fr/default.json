@@ -1,0 +1,50 @@
+{
+  "language": {
+    "switch": "Changer de langue"
+  },
+  "hero": {
+    "badge": "Démo Immoteur",
+    "githubCta": "Repo GitHub",
+    "title": "Invest'Immo — trouvez des appartements à rénover pour investir.",
+    "subtitle": "Cette démo montre comment connecter l'API Immoteur pour afficher des annonces filtrées par DPE et par département."
+  },
+  "filters": {
+    "sale": "Vente",
+    "apartment": "Appartement",
+    "department": "Département",
+    "departmentPlaceholder": "Saisissez un département ou un code"
+  },
+  "summary": {
+    "totalMatches": "Total des résultats {{countLabel}}"
+  },
+  "errors": {
+    "loadClassifieds": "Impossible de charger les annonces pour le moment. Veuillez réessayer dans un instant."
+  },
+  "empty": {
+    "noClassifieds": "Aucune annonce trouvée dans {{department}}. Essayez un autre département."
+  },
+  "pagination": {
+    "notice": "La pagination est limitée à la première page dans cette démo."
+  },
+  "labels": {
+    "dpe": "DPE {{label}}",
+    "ges": "GES {{label}}",
+    "notAvailable": "N\u2044D",
+    "noDescription": "Aucune description fournie.",
+    "areaUnit": "{{area}} m2"
+  },
+  "card": {
+    "noImage": "Aucune image",
+    "imageAlt": "Appartement à {{city}}",
+    "firstSeen": "Vu pour la première fois {{date}}",
+    "professional": "Pro",
+    "private": "Particulier",
+    "title": "Appartement - {{countLabel}} pièces",
+    "area": "Surface {{area}}",
+    "source": {
+      "otherLinks": "Autres liens sources",
+      "otherSources": "Autres sources",
+      "none": "Aucune source"
+    }
+  }
+}
