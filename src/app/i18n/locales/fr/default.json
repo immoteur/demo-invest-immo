@@ -5,23 +5,42 @@
   "hero": {
     "badge": "Démo Immoteur",
     "githubCta": "Repo GitHub",
-    "title": "Invest'Immo — trouvez des appartements à rénover pour investir.",
+    "title": "Invest'Immo — trouvez des biens à rénover pour investir.",
     "subtitle": "Cette démo montre comment connecter l'API Immoteur pour afficher des annonces filtrées par DPE et par département."
   },
   "filters": {
     "sale": "Vente",
     "apartment": "Appartement",
     "department": "Département",
-    "departmentPlaceholder": "Saisissez un département ou un code"
+    "departmentPlaceholder": "Saisissez un département ou un code",
+    "allDepartments": "Tous les départements"
+  },
+  "propertyTypes": {
+    "apartment": "Appartement",
+    "building": "Immeuble",
+    "house": "Maison",
+    "land": "Terrain",
+    "office": "Bureau",
+    "other": "Autre",
+    "parking": "Parking",
+    "premises": "Local",
+    "program": "Programme",
+    "shop": "Boutique"
   },
   "summary": {
     "totalMatches": "Total des résultats {{countLabel}}"
   },
   "errors": {
-    "loadClassifieds": "Impossible de charger les annonces pour le moment. Veuillez réessayer dans un instant."
+    "loadClassifieds": "Impossible de charger les annonces pour le moment. Veuillez réessayer dans un instant.",
+    "statusLabel": "Code statut",
+    "messageLabel": "Message d'erreur",
+    "headersLabel": "En-têtes de limitation",
+    "headersEmpty": "Aucun en-tête de limitation renvoyé.",
+    "statusUnknown": "Inconnu"
   },
   "empty": {
-    "noClassifieds": "Aucune annonce trouvée dans {{department}}. Essayez un autre département."
+    "noClassifieds": "Aucune annonce trouvée dans {{department}}. Essayez un autre département.",
+    "noClassifiedsAll": "Aucune annonce trouvée sur l'ensemble des départements."
   },
   "pagination": {
     "notice": "La pagination est limitée à la première page dans cette démo."
@@ -39,7 +58,7 @@
     "firstSeen": "Vu pour la première fois {{date}}",
     "professional": "Pro",
     "private": "Particulier",
-    "title": "Appartement - {{countLabel}} pièces",
+    "title": "{{propertyType}} - {{countLabel}} pièces",
     "area": "Surface {{area}}",
     "source": {
       "otherLinks": "Autres liens sources",

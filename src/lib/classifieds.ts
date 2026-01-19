@@ -3,6 +3,7 @@ import type {
   EnergyGesLabel,
   Property,
   PropertyClassified,
+  PropertyType,
 } from '@immoteur/openapi-zod';
 
 export type ClassifiedSourceLink = Pick<PropertyClassified, 'id' | 'source'>;
@@ -15,6 +16,7 @@ export type PropertyCard = {
   roomCount: number | null;
   bedroomCount: number | null;
   area: number | null;
+  propertyType: PropertyType | null;
   dpeLabel: EnergyDpeLabel | null;
   gesLabel: EnergyGesLabel | null;
   postcode: string;
@@ -51,6 +53,7 @@ export function toPropertyCards(
       roomCount: property.property.roomCount ?? null,
       bedroomCount: property.property.bedroomCount ?? null,
       area: property.property.area ?? null,
+      propertyType: property.property.type ?? null,
       dpeLabel: property.energy?.dpe?.label ?? null,
       gesLabel: property.energy?.ges?.label ?? null,
       postcode: property.location.postcode,

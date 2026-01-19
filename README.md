@@ -63,6 +63,7 @@ Run `make help` to see available targets. Common commands:
 - `IMMOTEUR_DPE_LABELS` (optional): comma-separated, defaults to `F,G`.
 - `IMMOTEUR_MAX_RESULTS` (optional): max classifieds to display, defaults to `15`.
 - `IMMOTEUR_CACHE_TTL_MS` (optional): in-memory cache TTL in milliseconds, defaults to `300000`.
+- `ALLOW_NO_DEPARTMENT` (optional): when `true`, adds an "All departments" option and makes it the default.
 
 ## Behavior
 

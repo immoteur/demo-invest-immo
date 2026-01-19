@@ -110,6 +110,9 @@ export const departments = [
 ] as const;
 
 export type Department = (typeof departments)[number];
+export type DepartmentOption = { code: string; name: string };
+export const ALL_DEPARTMENT_CODE = 'all';
+export type DepartmentSelection = Department | { code: typeof ALL_DEPARTMENT_CODE; name: string };
 
 export function findDepartment(code: string): Department | undefined {
   return departments.find((department) => department.code === code.toUpperCase());

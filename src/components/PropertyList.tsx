@@ -2,41 +2,74 @@
 
 import { Suspense, use } from 'react';
 import { Card, CardBody, Chip } from '@heroui/react';
-import type { EnergyDpeLabel } from '@immoteur/openapi-zod';
-import { Building2, ExternalLink, Github, MapPin, Tag } from 'lucide-react';
+import type { EnergyDpeLabel, PropertyType } from '@immoteur/openapi-zod';
+import type { LucideIcon } from 'lucide-react';
+import {
+  Building,
+  Building2,
+  BriefcaseBusiness,
+  ExternalLink,
+  Github,
+  Home,
+  LandPlot,
+  Layers,
+  MapPin,
+  ParkingSquare,
+  Store,
+  Tag,
+  Warehouse,
+} from 'lucide-react';
 import { useTranslation } from '@/app/i18n/client';
 import { toPropertyCards, type PropertyCard as PropertyCardType } from '@/lib/classifieds';
-import { departments, type Department } from '@/lib/departments';
+import { ALL_DEPARTMENT_CODE, departments, type DepartmentSelection } from '@/lib/departments';
 import { formatInteger } from '@/lib/format';
-import type { PropertySearchResponse } from '@/lib/immoteur';
+import type { PropertySearchResult } from '@/lib/immoteur';
 import { PropertyCard } from './PropertyCard';
 import { DepartmentAutocomplete } from './DepartmentAutocomplete';
 import { LanguageSwitch } from './LanguageSwitch';
+import { PropertyErrorNotice } from './PropertyErrorNotice';
 
 type PropertyListProps = {
-  selectedDepartment: Department;
+  selectedDepartment: DepartmentSelection;
   dpeLabels: EnergyDpeLabel[];
-  responsePromise: Promise<PropertySearchResponse>;
+  responsePromise: Promise<PropertySearchResult>;
   maxResults: number;
+  allowNoDepartment: boolean;
+  propertyTypes: PropertyType[];
 };
 
 type PropertySummaryProps = {
-  responsePromise: Promise<PropertySearchResponse>;
+  responsePromise: Promise<PropertySearchResult>;
 };
 
 type PropertyResultsProps = {
-  responsePromise: Promise<PropertySearchResponse>;
+  responsePromise: Promise<PropertySearchResult>;
   maxResults: number;
-  selectedDepartment: Department;
+  selectedDepartment: DepartmentSelection;
 };
 
 type PropertyResultsSkeletonProps = {
-  selectedDepartment: Department;
+  selectedDepartment: DepartmentSelection;
 };
 
 const SKELETON_PROPERTY_COUNT = 6;
+const PROPERTY_TYPE_META: Record<PropertyType, { labelKey: string; Icon: LucideIcon }> = {
+  apartment: { labelKey: 'propertyTypes.apartment', Icon: Building2 },
+  building: { labelKey: 'propertyTypes.building', Icon: Building },
+  house: { labelKey: 'propertyTypes.house', Icon: Home },
+  land: { labelKey: 'propertyTypes.land', Icon: LandPlot },
+  office: { labelKey: 'propertyTypes.office', Icon: BriefcaseBusiness },
+  other: { labelKey: 'propertyTypes.other', Icon: Tag },
+  parking: { labelKey: 'propertyTypes.parking', Icon: ParkingSquare },
+  premises: { labelKey: 'propertyTypes.premises', Icon: Warehouse },
+  program: { labelKey: 'propertyTypes.program', Icon: Layers },
+  shop: { labelKey: 'propertyTypes.shop', Icon: Store },
+};
 
-const createSkeletonProperty = (index: number, department: Department): PropertyCardType => ({
+const createSkeletonProperty = (
+  index: number,
+  department: DepartmentSelection,
+): PropertyCardType => ({
   id: `skeleton-${department.code}-${index}`,
   imageUrl: null,
   price: null,
@@ -44,6 +77,7 @@ const createSkeletonProperty = (index: number, department: Department): Property
   roomCount: null,
   bedroomCount: null,
   area: null,
+  propertyType: 'apartment',
   dpeLabel: null,
   gesLabel: null,
   postcode: '00000',
@@ -58,7 +92,22 @@ const createSkeletonProperty = (index: number, department: Department): Property
 function PropertySummary({ responsePromise }: PropertySummaryProps) {
   const { t, language } = useTranslation();
   const notAvailableLabel = t('labels.notAvailable');
-  const response = use(responsePromise);
+  const result = use(responsePromise);
+
+  if (!result.ok) {
+    return (
+      <div className="text-[11px] uppercase tracking-[0.2em] text-muted">
+        <span>
+          {t('summary.totalMatches', {
+            count: 0,
+            countLabel: notAvailableLabel,
+          })}
+        </span>
+      </div>
+    );
+  }
+
+  const response = result.data;
   const totalMatchesLabel = formatInteger(response.meta.total, language, notAvailableLabel);
 
   return (
@@ -90,14 +139,23 @@ function PropertyResults({
   selectedDepartment,
 }: PropertyResultsProps) {
   const { t } = useTranslation();
-  const response = use(responsePromise);
+  const isAllDepartment = selectedDepartment.code === ALL_DEPARTMENT_CODE;
+  const result = use(responsePromise);
+
+  if (!result.ok) {
+    return <PropertyErrorNotice error={result.error} />;
+  }
+
+  const response = result.data;
   const displayedProperties = toPropertyCards(response.items, maxResults);
   const showEmptyState = displayedProperties.length === 0;
 
   if (showEmptyState) {
     return (
       <div className="rounded-3xl bg-card p-8 text-sm text-muted soft-ring">
-        {t('empty.noClassifieds', { department: selectedDepartment.name })}
+        {isAllDepartment
+          ? t('empty.noClassifiedsAll')
+          : t('empty.noClassifieds', { department: selectedDepartment.name })}
       </div>
     );
   }
@@ -141,8 +199,14 @@ export function PropertyList({
   dpeLabels,
   responsePromise,
   maxResults,
+  allowNoDepartment,
+  propertyTypes,
 }: PropertyListProps) {
   const { t } = useTranslation();
+  const isAllDepartment = selectedDepartment.code === ALL_DEPARTMENT_CODE;
+  const departmentOptions = allowNoDepartment
+    ? [{ code: ALL_DEPARTMENT_CODE, name: t('filters.allDepartments') }, ...departments]
+    : departments;
 
   return (
     <div className="relative overflow-hidden">
@@ -192,7 +256,7 @@ export function PropertyList({
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <DepartmentAutocomplete
                 key={selectedDepartment.code}
-                departments={departments}
+                departments={departmentOptions}
                 selectedCode={selectedDepartment.code}
               />
               <div className="flex flex-wrap gap-2">
@@ -204,14 +268,22 @@ export function PropertyList({
                 >
                   {t('filters.sale')}
                 </Chip>
-                <Chip
-                  variant="flat"
-                  radius="sm"
-                  className="bg-card soft-ring"
-                  startContent={<Building2 size={14} />}
-                >
-                  {t('filters.apartment')}
-                </Chip>
+                {propertyTypes.map((type) => {
+                  const meta = PROPERTY_TYPE_META[type];
+                  const Icon = meta?.Icon ?? Tag;
+                  const label = meta ? t(meta.labelKey) : type;
+                  return (
+                    <Chip
+                      key={type}
+                      variant="flat"
+                      radius="sm"
+                      className="bg-card soft-ring"
+                      startContent={<Icon size={14} />}
+                    >
+                      {label}
+                    </Chip>
+                  );
+                })}
                 {dpeLabels.map((label) => (
                   <Chip
                     key={label}
@@ -230,7 +302,9 @@ export function PropertyList({
                   className="bg-card soft-ring"
                   startContent={<MapPin size={14} />}
                 >
-                  {selectedDepartment.code} {selectedDepartment.name}
+                  {isAllDepartment
+                    ? t('filters.allDepartments')
+                    : `${selectedDepartment.code} ${selectedDepartment.name}`}
                 </Chip>
               </div>
             </div>

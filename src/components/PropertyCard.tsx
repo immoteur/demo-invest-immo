@@ -59,6 +59,11 @@ export function PropertyCard({ property, index, isSkeleton = false }: PropertyCa
   const bedroomCountLabel = isSkeleton
     ? placeholderCount
     : formatCount(property.bedroomCount, language, notAvailableLabel);
+  const propertyTypeLabel = isSkeleton
+    ? t('propertyTypes.apartment')
+    : property.propertyType
+      ? t(`propertyTypes.${property.propertyType}`)
+      : t('propertyTypes.other');
   const areaLabel = isSkeleton
     ? t('labels.areaUnit', { area: '000' })
     : property.area === null || property.area === undefined
@@ -169,7 +174,11 @@ export function PropertyCard({ property, index, isSkeleton = false }: PropertyCa
         </div>
         <div className="space-y-2">
           <h3 className={`font-display text-xl ${isSkeleton ? skeletonClass : 'text-foreground'}`}>
-            {t('card.title', { count: roomCount, countLabel: roomCountLabel })}
+            {t('card.title', {
+              count: roomCount,
+              countLabel: roomCountLabel,
+              propertyType: propertyTypeLabel,
+            })}
           </h3>
           <p className={`text-sm ${isSkeleton ? skeletonClass : 'text-muted'}`}>{description}</p>
         </div>

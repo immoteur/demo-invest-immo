@@ -5,23 +5,42 @@
   "hero": {
     "badge": "Immoteur Demo",
     "githubCta": "GitHub Repo",
-    "title": "Invest'Immo — find apartments to renovate and invest in.",
+    "title": "Invest'Immo — find properties to renovate and invest in.",
     "subtitle": "This demo shows how to connect the Immoteur API to display DPE-filtered listings by department."
   },
   "filters": {
     "sale": "Sale",
     "apartment": "Apartment",
     "department": "Department",
-    "departmentPlaceholder": "Type a department or code"
+    "departmentPlaceholder": "Type a department or code",
+    "allDepartments": "All departments"
+  },
+  "propertyTypes": {
+    "apartment": "Apartment",
+    "building": "Building",
+    "house": "House",
+    "land": "Land",
+    "office": "Office",
+    "other": "Other",
+    "parking": "Parking",
+    "premises": "Premises",
+    "program": "Program",
+    "shop": "Shop"
   },
   "summary": {
     "totalMatches": "Total matches {{countLabel}}"
   },
   "errors": {
-    "loadClassifieds": "Unable to load classifieds right now. Please try again shortly."
+    "loadClassifieds": "Unable to load classifieds right now. Please try again shortly.",
+    "statusLabel": "Status code",
+    "messageLabel": "Error message",
+    "headersLabel": "Rate limit headers",
+    "headersEmpty": "No rate limit headers returned.",
+    "statusUnknown": "Unknown"
   },
   "empty": {
-    "noClassifieds": "No classifieds found in {{department}}. Try another department."
+    "noClassifieds": "No classifieds found in {{department}}. Try another department.",
+    "noClassifiedsAll": "No classifieds found across all departments."
   },
   "pagination": {
     "notice": "Pagination is limited to the first page in this demo."
@@ -39,7 +58,7 @@
     "firstSeen": "First seen {{date}}",
     "professional": "Pro",
     "private": "Private",
-    "title": "Apartment - {{countLabel}} rooms",
+    "title": "{{propertyType}} - {{countLabel}} rooms",
     "area": "Area {{area}}",
     "source": {
       "otherLinks": "Other source links",

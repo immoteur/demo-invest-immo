@@ -4,10 +4,10 @@ import { Select, SelectItem } from '@heroui/react';
 import type { Key } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/app/i18n/client';
-import type { Department } from '@/lib/departments';
+import { ALL_DEPARTMENT_CODE, type DepartmentOption } from '@/lib/departments';
 
 type DepartmentAutocompleteProps = {
-  departments: readonly Department[];
+  departments: readonly DepartmentOption[];
   selectedCode: string;
   isSkeleton?: boolean;
 };
@@ -54,11 +54,16 @@ export function DepartmentAutocomplete({
         value: 'text-foreground',
       }}
     >
-      {departments.map((department) => (
-        <SelectItem key={department.code} textValue={`${department.code} ${department.name}`}>
-          {department.code} - {department.name}
-        </SelectItem>
-      ))}
+      {departments.map((department) => {
+        const isAll = department.code === ALL_DEPARTMENT_CODE;
+        const label = isAll ? department.name : `${department.code} - ${department.name}`;
+        const textValue = isAll ? department.name : `${department.code} ${department.name}`;
+        return (
+          <SelectItem key={department.code} textValue={textValue}>
+            {label}
+          </SelectItem>
+        );
+      })}
     </Select>
   );
 }
