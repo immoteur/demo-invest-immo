@@ -27,8 +27,7 @@ help:
 	@echo "  reset         Alias for stack-reset"
 
 install:
-	corepack enable
-	pnpm install
+	./bin/pnpm install
 .env:
 	@if [ ! -f .env ]; then cp .env.example .env; echo "Created .env from .env.example"; fi
 
@@ -36,38 +35,38 @@ ensure-deps:
 	@if [ ! -x node_modules/.bin/next ]; then $(MAKE) install; fi
 
 dev: ensure-deps .env
-	pnpm dev
+	./bin/pnpm dev
 
 build: ensure-deps
-	pnpm build
+	./bin/pnpm build
 
 start: ensure-deps
-	pnpm start
+	./bin/pnpm start
 
 lint: ensure-deps
-	pnpm lint
+	./bin/pnpm lint
 
 format: ensure-deps
-	pnpm format
+	./bin/pnpm format
 
 format-check: ensure-deps
-	pnpm format:check
+	./bin/pnpm format:check
 
 fmt: format
 
 fmt-check: format-check
 
 test: ensure-deps
-	pnpm test
+	./bin/pnpm test
 
 test-watch: ensure-deps
-	pnpm test:watch
+	./bin/pnpm test:watch
 
 check:
-	pnpm format:check
-	pnpm lint
-	pnpm test
-	pnpm build
+	./bin/pnpm format:check
+	./bin/pnpm lint
+	./bin/pnpm test
+	./bin/pnpm build
 
 docker-build:
 	docker compose build
