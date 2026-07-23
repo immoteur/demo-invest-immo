@@ -19,7 +19,7 @@ This project is a demo for immoteur.com and is not production-ready. No API keys
 
 ## Requirements
 
-- Node.js 20+
+- Node.js 24+
 - pnpm (see `packageManager` in `package.json`)
 
 ## Setup
