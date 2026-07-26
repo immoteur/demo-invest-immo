@@ -1,4 +1,5 @@
 # Immoteur Invest Immo Demo
+<!-- immoteur-runtime: node=24 -->
 
 Open-source Next.js demo app for the Immoteur API (https://immoteur.com) that lists DPE G apartment classifieds. The UI is a single page with a department filter and HeroUI cards. API calls stay server-side to protect the Immoteur API token.
 
